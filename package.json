@@ -1,0 +1,63 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "author": "redpelicans",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src --color",
+    "build:prod": "NODE_ENV=production webpack -p --config webpack.config.js --progress",
+    "build:dev": "NODE_ENV=development webpack-dev-server --progress --config webpack.config.js",
+    "bundle:stats": "NODE_ENV=production webpack -p --config webpack.config.js --profile --json > stats.json",
+    "bundle:analyse": "webpack-bundle-analyzer ./stats.json ./build --report --mode=static",
+    "test": "NODE_ENV=testing mocha --require ignore-styles --require babel-core/register --reporter spec \"./**/__test__/*.js\" ",
+    "coverage": "NODE_ENV=testing nyc yarn test"
+  },
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.0.1",
+    "universal-fetch": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.8",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "enzyme": "^2.6.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.0.0",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.1.1",
+    "should": "^11.1.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.3.0",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "nyc": {
+    "exclude": [
+      "build"
+    ]
+  },
+  "babel": {
+    "presets": [[ "latest", { "modules": false }],
+      "stage-0",
+      "react"
+    ]
+  }
+}
