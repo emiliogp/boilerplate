@@ -5,12 +5,12 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint src --color",
-    "build:prod": "NODE_ENV=production webpack -p --config webpack.config.js --progress",
-    "build:dev": "NODE_ENV=development webpack-dev-server --progress --config webpack.config.js",
-    "bundle:stats": "NODE_ENV=production webpack -p --config webpack.config.js --profile --json > stats.json",
+    "build:prod": "cross-env NODE_ENV=production webpack -p --config webpack.config.js --progress",
+    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config webpack.config.js",
+    "bundle:stats": "cross-env NODE_ENV=production webpack -p --config webpack.config.js --profile --json > stats.json",
     "bundle:analyse": "webpack-bundle-analyzer ./stats.json ./build --report --mode=static",
-    "test": "NODE_ENV=testing mocha --require ignore-styles --require babel-core/register --reporter spec \"./**/__test__/*.js\" ",
-    "coverage": "NODE_ENV=testing nyc yarn test"
+    "test": "cross-env NODE_ENV=testing mocha --require ignore-styles --require babel-core/register --reporter spec \"./**/__test__/*.js\" ",
+    "coverage": "cross-env NODE_ENV=testing nyc yarn test"
   },
   "dependencies": {
     "react": "^15.0.2",
@@ -29,6 +29,7 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
+    "cross-env": "^3.2.4",
     "css-loader": "^0.26.1",
     "enzyme": "^2.6.0",
     "eslint": "^3.11.1",
@@ -55,7 +56,13 @@
     ]
   },
   "babel": {
-    "presets": [[ "latest", { "modules": false }],
+    "presets": [
+      [
+        "latest",
+        {
+          "modules": false
+        }
+      ],
       "stage-0",
       "react"
     ]
