@@ -6,4 +6,4 @@ const App = () => (
 );
 console.log('mounting React ...'); // eslint-disable-line no-console
 const mountNode = window.document.getElementById('__TICTACTOE__');
-render(<App/>, mountNode);
+render(<App />, mountNode);

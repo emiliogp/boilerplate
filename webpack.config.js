@@ -28,7 +28,7 @@ const webpackConfig = {
       },
       {
         test: /\.css$/,
-        include: /node_modules/,
+        exclude: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
       },
     ],

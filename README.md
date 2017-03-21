@@ -3,7 +3,7 @@
 ## Install
 
 ```
-$ npm install -g yarn
+$ npm install -g yarn babel-cli
 ```
 
 ## Launch development mode
