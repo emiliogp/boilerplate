@@ -1,0 +1,25 @@
+.header {
+  margin-top: 50px;
+}
+
+.title-icon {
+  font-size: xx-large;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.start-button {
+  display: inline-block;
+}
+
+.title {
+  display: inline-block;
+  font-size: xx-large;
+  margin-right: 10px;
+}
+
+.player-preview {
+  margin-top: -15px;
+  margin-right: 15px;
+  color: grey;
+}

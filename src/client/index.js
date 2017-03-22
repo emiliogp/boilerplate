@@ -4,7 +4,12 @@ import App from './components/App';
 
 const X = 'x';
 const O = 'o';
+const { hash } = document.location;
+const name = hash.slice(1) || 'Unknown player';
+const player = { name };
+
 const state = {
+  player,
   board: [X, O, X, null, null, X, O, null, null],
 };
 
