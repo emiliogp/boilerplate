@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Jumbotron, Row, Col, Button } from 'react-bootstrap';
 import { BoardPanel } from '../Board';
+import { HistoryPanel } from '../History';
 import { Header, HeaderLeft, HeaderRight } from '../Header';
 import { Icon, Title } from '../Widgets';
 import { isStatusOver } from '../../game';
@@ -22,27 +23,30 @@ StartButton.propTypes = {
   children: React.PropTypes.string.isRequired,
 };
 
-const App = ({ board, player, currentPlayer, status }) => (
+const App = ({ board, player, currentPlayer, status, history }) => (
   <Grid>
-    <Row>
-      <Header player={player}>
-        <HeaderLeft>
-          <Icon type='trophy' />
-          <Title name='TicTacToe' />
-        </HeaderLeft>
-        <HeaderRight>
-          <StartButton status={status}>
-            Start The Game
-          </StartButton>
-        </HeaderRight>
-      </Header>
-    </Row>
+    <Header player={player}>
+      <HeaderLeft>
+        <Icon type='trophy' />
+        <Title name='TicTacToe' />
+      </HeaderLeft>
+      <HeaderRight>
+        <StartButton status={status}>
+          Start The Game
+        </StartButton>
+      </HeaderRight>
+    </Header>
     <Jumbotron className="content">
-      <Row>
-        <Col md={6} xs={12}>
-          <BoardPanel board={board} currentPlayer={currentPlayer} />
-        </Col>
-      </Row>
+      <Grid>
+        <Row>
+          <Col md={6} xs={12}>
+            <BoardPanel board={board} currentPlayer={currentPlayer} />
+          </Col>
+          <Col md={6} xs={12}>
+            <HistoryPanel history={history} />
+          </Col>
+        </Row>
+      </Grid>
     </Jumbotron>
   </Grid>
 );
@@ -52,6 +56,7 @@ App.propTypes = {
   player: React.PropTypes.object.isRequired,
   currentPlayer: React.PropTypes.object,
   status: React.PropTypes.string.isRequired,
+  history: React.PropTypes.array.isRequired,
 };
 
 export default App;
