@@ -2,11 +2,15 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import './header.css';
 
-export const PlayerPreview = ({ player }) => (
+export const PlayerPreview = ({ player: { name } }) => (
   <Col className='player-preview text-nowrap text-right'>
-    <em >{`player: ${player.name}`}</em>
+    <em >{`player: ${name}`}</em>
   </Col>
 );
+
+PlayerPreview.propTypes = {
+  player: React.PropTypes.object.isRequired,
+};
 
 export const Header = ({ children, player }) => {
   const headerLeft = () => {
