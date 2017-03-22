@@ -24,7 +24,6 @@ StartButton.propTypes = {
 
 const App = ({ board, player, currentPlayer, status }) => (
   <Grid>
-    <Row>
       <Header player={player}>
         <HeaderLeft>
           <Icon type='trophy' />
@@ -36,7 +35,6 @@ const App = ({ board, player, currentPlayer, status }) => (
           </StartButton>
         </HeaderRight>
       </Header>
-    </Row>
     <Jumbotron className="content">
       <Row>
         <Col md={6} xs={12}>
