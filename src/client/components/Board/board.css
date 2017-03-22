@@ -1,0 +1,36 @@
+.board {
+  height: 33vh;
+  width: 33vh;
+  border: solid black;
+  border-width: 0 0.1vh 0.1vh 0 ;
+}
+
+.panel {
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #eee;
+}
+
+.empty-cell {
+  color: #eee;
+}
+
+.empty-cell:hover {
+  background-color: rgba(128, 128, 128, 0.38);
+  color: rgba(128, 128, 128, 0.38);
+  cursor: pointer;
+}
+
+.cell {
+  font-size: 7vh;
+  border: solid black;
+  border-width: 0.1vh 0 0 0.1vh;
+  line-height: 10.9vh;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.message {
+  font-size: 3vh;
+  margin-bottom: 2vh;
+}
