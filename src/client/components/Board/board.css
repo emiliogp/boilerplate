@@ -1,14 +1,18 @@
 .board {
-  height: 33vh;
-  width: 33vh;
+  height: 300px;
+  width: 300px;
   border: solid black;
-  border-width: 0 0.1vh 0.1vh 0 ;
+  border-width: 0 1px 1px 0 ;
 }
 
 .panel {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   background-color: #eee;
+}
+
+.inactive-cell {
+  color: #eee;
 }
 
 .empty-cell {
@@ -22,15 +26,15 @@
 }
 
 .cell {
-  font-size: 7vh;
+  font-size: 5em;
   border: solid black;
-  border-width: 0.1vh 0 0 0.1vh;
-  line-height: 10.9vh;
+  border-width: 1px 0 0 1px;
+  line-height: 99px;
   text-align: center;
   vertical-align: middle;
 }
 
 .message {
-  font-size: 3vh;
-  margin-bottom: 2vh;
+  font-size: 1.5em;
+  margin-bottom: 20px;
 }

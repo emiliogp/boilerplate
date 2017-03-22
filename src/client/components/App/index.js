@@ -4,7 +4,7 @@ import { BoardPanel } from '../Board';
 import './app.css';
 
 const App = ({ board }) => (
-  <Grid>
+  <Grid className="content">
     <Jumbotron>
       <Row>
         <Col md={6} xs={12}>
