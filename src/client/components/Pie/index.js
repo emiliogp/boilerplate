@@ -30,7 +30,7 @@ export class PiePanel extends React.Component {
             data.map((d, i) => (
               <span key={ i }>
                 <i className='bullet fa fa-circle' style={{ color: d.color }} />
-                <span className='name' style={{ fontWeight: this.state.expandedSector == i ? 'bold' : null }}>
+                <span className='name' style={{ fontWeight: this.state.expandedSector === i ? 'bold' : null }}>
                   {d.label} : {d.value}
                 </span>
               </span>
