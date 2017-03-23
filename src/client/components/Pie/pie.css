@@ -1,0 +1,19 @@
+.pie-chart {
+  margin-bottom: 50px;
+}
+
+.pie {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.legend {
+  text-align: center;
+}
+.name {
+  margin-right: 5px;
+}
+
+.bullet {
+  margin-right: 3px;
+}
