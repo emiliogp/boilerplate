@@ -41,6 +41,7 @@
     "ignore-styles": "^5.0.1",
     "mocha": "^3.2.0",
     "nyc": "^10.0.0",
+    "react-addons-test-utils": "^15.4.2",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.1.1",
