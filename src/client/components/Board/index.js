@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import './board.css';
 
 export const Message = ({ currentPlayer }) => {
@@ -8,41 +8,54 @@ export const Message = ({ currentPlayer }) => {
     <Col xs={12} className="message">
       <span>{message}</span>
     </Col>
-  )
+  );
 };
 Message.propTypes = {
   currentPlayer: React.PropTypes.object,
 };
 
-export const Cell = ({ piece }) => (
-  <Col xs={4} className="cell">
-    {piece || '\u00a0'}
-  </Col>
-);
+export class Cell extends React.Component {
+  state = {
+  }
+
+  render() {
+    const { piece } = this.props;
+    return (
+      <Col xs={4} className="cell">
+        {piece || '\u00a0'}
+      </Col>
+    );
+  }
+}
+
 Cell.propTypes = {
   piece: React.PropTypes.string,
 };
 
 
-export const Board = ({ board }) => (
-  <Grid className="board">
-    <Row>
-      {board.map((piece, i) => <Cell key={i} piece={piece} />)}
-    </Row>
-  </Grid>
+export const Board = ({ board, computerPlay }) => (
+  <div>
+    <Button onClick={computerPlay}>Computer Play</Button>
+    <Grid className="board">
+      <Row>
+        {board.map((piece, i) => <Cell key={i} piece={piece} />)}
+      </Row>
+    </Grid>
+  </div>
 );
 
 Board.propTypes = {
   board: React.PropTypes.array.isRequired,
+  computerPlay: React.PropTypes.func.isRequired,
 };
 
-export const BoardPanel = ({ board, currentPlayer }) => (
+export const BoardPanel = ({ board, currentPlayer, computerPlay }) => (
   <Grid className="panel">
     <Row>
       <Message currentPlayer={currentPlayer} />
     </Row>
     <Row>
-      <Board board={board} />
+      <Board board={board} computerPlay={computerPlay} />
     </Row>
   </Grid>
 );
@@ -50,5 +63,5 @@ export const BoardPanel = ({ board, currentPlayer }) => (
 BoardPanel.propTypes = {
   board: React.PropTypes.array.isRequired,
   currentPlayer: React.PropTypes.object,
+  computerPlay: React.PropTypes.func,
 };
-
