@@ -15,7 +15,12 @@ Message.propTypes = {
 };
 
 export class Cell extends React.Component {
-  state = {
+
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.piece !== this.props.piece) {
+      return true;
+    }
+    return false;
   }
 
   render() {
