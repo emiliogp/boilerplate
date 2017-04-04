@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import './history.css';
 
 const Status = ({ round }) => (
-  <div className='status'>
+  <div className="status">
     <span>{`Round: ${round}`}</span>
   </div>
 );
@@ -13,11 +13,11 @@ Status.propTypes = {
 };
 
 const TiedRound = ({ id }) => (
-  <Row className='round'>
-    <Col xs={2} className='id'> 
-      {id} 
+  <Row className="round">
+    <Col xs={2} className="id">
+      {id}
     </Col>
-    <Col xs={7} className='winner'> 
+    <Col xs={7} className="winner">
       No Winner
     </Col>
   </Row>
@@ -27,15 +27,15 @@ TiedRound.propTypes = {
 };
 
 const WinnedRound = ({ id, name }) => (
-  <Row className='round'>
-    <Col xs={2} className='id'> 
-      {id} 
+  <Row className="round">
+    <Col xs={2} className="id">
+      {id}
     </Col>
-    <Col xs={7} className='winner'> 
-      {name} 
+    <Col xs={7} className="winner">
+      {name}
     </Col>
-    <Col xs={2} className='thumb'> 
-      <i className='fa fa-thumbs-o-up' />
+    <Col xs={2} className="thumb">
+      <i className="fa fa-thumbs-o-up" />
     </Col>
   </Row>
 );
@@ -46,8 +46,8 @@ WinnedRound.propTypes = {
 };
 
 const Round = ({ round }) => {
-  if (round.winner) return <WinnedRound id={round.id} name={round.winner.name} />
-  return <TiedRound id={round.id} />
+  if (round.winner) return <WinnedRound id={round.id} name={round.winner.name} />;
+  return <TiedRound id={round.id} />;
 };
 
 Round.propTypes = {
@@ -55,7 +55,7 @@ Round.propTypes = {
 };
 
 const History = ({ history }) => (
-  <Grid className='history'>
+  <Grid className="history">
     {history.slice(-20).reverse().map((round, i) => <Round round={round} key={i} />)}
   </Grid>
 );
@@ -66,14 +66,14 @@ History.propTypes = {
 
 
 export const HistoryPanel = ({ history }) => {
-  const nextRound = history && history.length + 1 || 0;
+  const nextRound = (history && history.length + 1) || 0;
   return (
     <Grid>
       <Row>
-        <Status round={nextRound}/>
+        <Status round={nextRound} />
       </Row>
       <Row>
-        <History history={history}/>
+        <History history={history} />
       </Row>
     </Grid>
   );
@@ -82,4 +82,3 @@ export const HistoryPanel = ({ history }) => {
 HistoryPanel.propTypes = {
   history: React.PropTypes.array,
 };
-

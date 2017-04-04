@@ -2,7 +2,7 @@ import React from 'react';
 import './widgets.css';
 
 export const Icon = ({ type }) => (
-  <div className='title-icon'>
+  <div className="title-icon">
     <i className={`fa fa-${type}`} />
   </div>
 );
@@ -12,7 +12,7 @@ Icon.propTypes = {
 };
 
 export const Title = ({ name }) => (
-  <div className='title'>
+  <div className="title">
     <span>{name}</span>
   </div>
 );
