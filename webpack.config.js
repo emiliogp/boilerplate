@@ -27,10 +27,15 @@ const webpackConfig = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
+        test: /\.css/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: [ 
+            'css-loader', 
+          ]
+        })
       },
+
     ],
   },
   plugins: compact([
@@ -38,6 +43,9 @@ const webpackConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
       },
+    }),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
     }),
     ifDev(new webpack.HotModuleReplacementPlugin()),
   ]),
