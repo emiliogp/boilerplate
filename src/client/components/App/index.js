@@ -6,6 +6,8 @@ import { HistoryPanel } from '../History';
 import { Header, HeaderLeft, HeaderRight } from '../Header';
 import { Icon, Title } from '../Widgets';
 import { isStatusOver, O } from '../../game';
+import MyForm from '../MyForm';
+
 import './app.css';
 
 const StartButton = ({ status, children }) => {
@@ -27,6 +29,7 @@ StartButton.propTypes = {
 class App extends React.Component {
   state = {
     board: this.props.board,
+    isAuthenticated: false,
   }
 
   computerPlay = () => {
@@ -45,9 +48,12 @@ class App extends React.Component {
     }
   }
 
+  auth = () => this.setState({ isAuthenticated: true })
+
   render() {
     const { player, currentPlayer, status, history } = this.props;
-    const { board } = this.state;
+    const { board, isAuthenticated } = this.state;
+    if (!isAuthenticated) return (<MyForm onAuth={this.auth} />);
     return (
       <Grid>
         <Header player={player}>
