@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Jumbotron, Row, Col, Button } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 import { BoardPanel } from '../Board';
 import { PiePanel } from '../Pie';
 import { HistoryPanel } from '../History';
@@ -21,7 +22,7 @@ const StartButton = ({ status, children }) => {
 
 StartButton.propTypes = {
   status: React.PropTypes.string.isRequired,
-  children: React.PropTypes.string.isRequired,
+  children: React.PropTypes.object.isRequired,
 };
 
 const App = ({ board, player, currentPlayer, status, history }) => (
@@ -33,7 +34,10 @@ const App = ({ board, player, currentPlayer, status, history }) => (
       </HeaderLeft>
       <HeaderRight>
         <StartButton status={status}>
-          Start The Game
+          <FormattedMessage
+            id="start.the.game"
+            defaultMessage="I am the default value"
+          />
         </StartButton>
       </HeaderRight>
     </Header>

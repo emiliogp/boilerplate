@@ -1,0 +1,10 @@
+{
+  "en": {
+    "hello.world": "Hello World",
+    "start.the.game": "Start the game"
+  },
+  "fr": {
+    "hello.world": "Bonjour tout le monde",
+    "start.the.game": "Demarrer la partie"
+  }
+}
