@@ -28,7 +28,7 @@ const indexHtml = ({ html, state, language }) => `
   </html>
 `;
 
-const name = 'Server';
+const name = 'SSR';
 const player = { name };
 const computer = { name: 'computer', isComputer: true };
 const state = {
@@ -45,11 +45,8 @@ const state = {
   ],
 };
 
-
-
 const renderIndexPage = (req, res) => {
   const language = req.query.language || 'en';
-  const store = {};
   const Root = (
     <IntlProvider locale={language} messages={messages[language]}> 
       <App {...state}/>
@@ -60,4 +57,3 @@ const renderIndexPage = (req, res) => {
 }
 
 export default renderIndexPage;
-
