@@ -4,7 +4,7 @@ import { BoardPanel } from '../Board';
 import { HistoryPanel } from '../History';
 import { Header, HeaderLeft, HeaderRight } from '../Header';
 import { Icon, Title } from '../Widgets';
-import { isStatusOver } from '../../game';
+import { isStatusOver, addAPiece } from '../../game';
 import './app.css';
 
 const StartButton = ({ status, children }) => {
@@ -23,33 +23,54 @@ StartButton.propTypes = {
   children: React.PropTypes.string.isRequired,
 };
 
-const App = ({ board, player, currentPlayer, status, history }) => (
-  <Grid>
-    <Header player={player}>
-      <HeaderLeft>
-        <Icon type='trophy' />
-        <Title name='TicTacToe' />
-      </HeaderLeft>
-      <HeaderRight>
-        <StartButton status={status}>
-          Start The Game
-        </StartButton>
-      </HeaderRight>
-    </Header>
-    <Jumbotron className="content">
+class App extends React.Component {
+  state = {
+    board: this.props.board
+  }
+
+  putAPiece = () => {
+  const { board } = this.state;
+
+    const newBoard = addAPiece(board);
+    this.setState({ board: newBoard });
+  }
+
+  render() {
+    const { player, currentPlayer, status, history } = this.props;
+    const { board } = this.state;
+    return (
       <Grid>
-        <Row>
-          <Col md={6} xs={12}>
-            <BoardPanel board={board} currentPlayer={currentPlayer} />
-          </Col>
-          <Col md={6} xs={12}>
-            <HistoryPanel history={history} />
-          </Col>
-        </Row>
-      </Grid>
-    </Jumbotron>
-  </Grid>
-);
+      <Header player={player}>
+        <HeaderLeft>
+          <Icon type='trophy' />
+          <Title name='TicTacToe' />
+        </HeaderLeft>
+        <HeaderRight>
+          <StartButton status={status}>
+            Start The Game
+          </StartButton>
+        </HeaderRight>
+      </Header>
+      <Jumbotron className="content">
+        <Grid>
+          <Row>
+            <Col md={6} xs={12}>
+              <BoardPanel
+                board={board}
+                currentPlayer={currentPlayer}
+                putAPiece={this.putAPiece}
+              />
+            </Col>
+            <Col md={6} xs={12}>
+              <HistoryPanel history={history} />
+            </Col>
+          </Row>
+        </Grid>
+      </Jumbotron>
+    </Grid>
+    );
+  }
+}
 
 App.propTypes = {
   board: React.PropTypes.array.isRequired,

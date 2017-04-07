@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import './board.css';
 
 const Message = ({ currentPlayer }) => {
@@ -14,11 +14,29 @@ Message.propTypes = {
   currentPlayer: React.PropTypes.object,
 };
 
-const Cell = ({ piece }) => (
-  <Col xs={4} className="cell">
-    {piece || '\u00a0'}
-  </Col>
-);
+class Cell extends React.Component {
+  componentWillMount() {
+    console.log('COMPONENT WILL MOUNT');
+  }
+
+  componentDidMount() {
+    console.log('COMPONENT DID MOUNT');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.piece !== nextProps.piece;
+  }
+
+  render() {
+    const { piece } = this.props;
+    return (
+      <Col xs={4} className="cell">
+        {piece || '\u00a0'}
+      </Col>
+    );
+  }
+}
+
 Cell.propTypes = {
   piece: React.PropTypes.string,
 };
@@ -36,19 +54,23 @@ Board.propTypes = {
   board: React.PropTypes.array.isRequired,
 };
 
-export const BoardPanel = ({ board, currentPlayer }) => (
-  <Grid className="panel">
-    <Row>
-      <Message currentPlayer={currentPlayer} />
-    </Row>
-    <Row>
-      <Board board={board} />
-    </Row>
-  </Grid>
+export const BoardPanel = ({ board, currentPlayer, putAPiece }) => (
+  <div>
+    <Button onClick={putAPiece}>Put a piece</Button>
+    <Grid className="panel">
+      <Row>
+        <Message currentPlayer={currentPlayer} />
+      </Row>
+      <Row>
+        <Board board={board} />
+      </Row>
+    </Grid>
+  </div>
 );
 
 BoardPanel.propTypes = {
   board: React.PropTypes.array.isRequired,
   currentPlayer: React.PropTypes.object,
+  putAPiece: React.PropTypes.func.isRequired,
 };
 
