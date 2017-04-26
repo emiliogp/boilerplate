@@ -6,7 +6,8 @@ import { HistoryPanel } from '../History';
 import { Header, HeaderLeft, HeaderRight } from '../Header';
 import { Icon, Title } from '../Widgets';
 import { isStatusOver, O } from '../../game';
-import MyForm from '../MyForm';
+import LoginForm from '../LoginForm';
+import Auth from '../Auth';
 
 import './app.css';
 
@@ -29,7 +30,7 @@ StartButton.propTypes = {
 class App extends React.Component {
   state = {
     board: this.props.board,
-    isAuthenticated: false,
+    user: undefined,
   }
 
   computerPlay = () => {
@@ -48,12 +49,12 @@ class App extends React.Component {
     }
   }
 
-  auth = () => this.setState({ isAuthenticated: true })
+  handleAuth = (user) => this.setState({ user })
 
   render() {
-    const { player, currentPlayer, status, history } = this.props;
-    const { board, isAuthenticated } = this.state;
-    if (!isAuthenticated) return (<MyForm onAuth={this.auth} />);
+    const { currentPlayer, status, history } = this.props;
+    const { board, user } = this.state;
+    const player = user && { name: user.username } || {};
     return (
       <Grid>
         <Header player={player}>
@@ -74,11 +75,13 @@ class App extends React.Component {
                 <PiePanel history={history} player={player} />
               </Col>
               <Col md={4} xs={12}>
-                <BoardPanel
-                  computerPlay={this.computerPlay}
-                  board={board}
-                  currentPlayer={currentPlayer}
-                />
+                <Auth user={user} onAuth={this.handleAuth}>
+                  <BoardPanel
+                    computerPlay={this.computerPlay}
+                    board={board}
+                    currentPlayer={currentPlayer}
+                  />
+                </Auth>
               </Col>
               <Col md={4} xs={12}>
                 <HistoryPanel history={history} />

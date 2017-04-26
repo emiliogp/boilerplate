@@ -7,7 +7,6 @@ import {
 } from 'react-bootstrap';
 import { BeforeInput } from '../Widgets';
 
-import './form.css';
 
 class MyForm extends React.Component {
   state = {
@@ -33,10 +32,11 @@ class MyForm extends React.Component {
   }
 
   checkAuth = (e) => {
+    const { username, password } = this.state;
     e.preventDefault();
 
     if (this.isFormIncomplete() === false) {
-      this.props.onAuth();
+      this.props.onAuth({ username, password });
     }
   }
 
