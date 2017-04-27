@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Grid, Jumbotron, Row, Col, Button } from 'react-bootstrap';
 import { BoardPanel } from '../Board';
 import { PiePanel } from '../Pie';
@@ -7,8 +9,6 @@ import { Header, HeaderLeft, HeaderRight } from '../Header';
 import { Icon, Title } from '../Widgets';
 import { isStatusOver } from '../../game';
 import { startGame } from '../../actions';
-import { bindDispatch } from '../../store';
-import Connect from '../Connect';
 import './app.css';
 
 const StartButton = ({ status, onStart, children }) => (
@@ -67,15 +67,7 @@ App.propTypes = {
   startGame: React.PropTypes.func.isRequired,
 };
 
-const Wrapper = () => (
-  <Connect>
-    {({ getState, dispatch }) => {
-      const props = { ...getState(), startGame: bindDispatch(startGame, dispatch) };
-      return <App {...props} />
-    }}
-  </Connect>
-);
-
-export default Wrapper;
-
-
+const actions = { startGame };
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+const mapStateToProps = state => state;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

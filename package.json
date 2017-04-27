@@ -13,10 +13,9 @@
     "coverage": "cross-env NODE_ENV=testing nyc yarn test"
   },
   "dependencies": {
-    "prop-types": "^15.5.8",
-    "react": "^15.5",
+    "react": "^15.0.2",
     "react-bootstrap": "^0.30.8",
-    "react-dom": "^15.5.2",
+    "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
     "react-svg-piechart": "^1.2.0",
     "redux": "^3.5.2",

@@ -10,6 +10,8 @@ const reducer = (state, action) => {
         board: action.board,
         currentPlayer: action.currentPlayer,
       };
+     default:
+      return state;
   }
 };
 
