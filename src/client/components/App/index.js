@@ -8,7 +8,7 @@ import { Icon, Title } from '../Widgets';
 import { isStatusOver } from '../../game';
 import { startGame } from '../../actions';
 import { bindDispatch } from '../../store';
-import { connect } from '../../connect';
+import Connect from '../Connect';
 import './app.css';
 
 const StartButton = ({ status, onStart, children }) => (
@@ -67,7 +67,15 @@ App.propTypes = {
   startGame: React.PropTypes.func.isRequired,
 };
 
-const mapsDispatchToProps = dispatch => ({ startGame: bindDispatch(startGame, dispatch) });
-export default connect(mapsDispatchToProps)(App);
+const Wrapper = () => (
+  <Connect>
+    {({ getState, dispatch }) => {
+      const props = { ...getState(), startGame: bindDispatch(startGame, dispatch) };
+      return <App {...props} />
+    }}
+  </Connect>
+);
+
+export default Wrapper;
 
 
