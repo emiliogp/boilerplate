@@ -24,7 +24,7 @@ StartButton.propTypes = {
 };
 
 const App = ({ board, player, computer, currentPlayer, status, history, startGame }) => {
-  const handleStart = () => startGame(player, computer);
+  const handleStart = () => startGame();
   return (
     <Grid>
       <Header player={player}>

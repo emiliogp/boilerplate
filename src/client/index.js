@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import App from './components/App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import { X, O, GAME_OVER } from './game';
@@ -26,7 +27,7 @@ const initialState = {
   ],
 };
 
-const store = createStore(reducer, initialState, applyMiddleware(createLogger()));
+const store = createStore(reducer, initialState, applyMiddleware(thunk, createLogger()));
 
 console.log('mounting React ...'); // eslint-disable-line no-console
 const mountNode = window.document.getElementById('__TICTACTOE__');
