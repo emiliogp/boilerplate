@@ -2,12 +2,14 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './components/App';
 import { X, O, GAME_OVER } from './game';
+import { createStore } from './store';
+import reducer from './reducers';
 
 const { hash } = document.location;
 const name = hash.slice(1) || 'Unknown player';
-const player = { name };
-const computer = { name: 'computer', isComputer: true };
-const state = {
+const player = { name, piece: X };
+const computer = { name: 'computer', isComputer: true, piece: O };
+const initialState = {
   currentPlayer: player,
   status: GAME_OVER,
   player,
@@ -21,6 +23,8 @@ const state = {
   ],
 };
 
+const store = createStore(reducer, initialState);
+
 console.log('mounting React ...'); // eslint-disable-line no-console
 const mountNode = window.document.getElementById('__TICTACTOE__');
-render(<App {...state} />, mountNode);
+render(<App store={store} />, mountNode);
