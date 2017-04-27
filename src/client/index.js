@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './components/App';
+import Provider from './components/Provider';
 import { X, O, GAME_OVER } from './game';
 import { createStore } from './store';
 import reducer from './reducers';
@@ -27,4 +28,10 @@ const store = createStore(reducer, initialState);
 
 console.log('mounting React ...'); // eslint-disable-line no-console
 const mountNode = window.document.getElementById('__TICTACTOE__');
-render(<App store={store} />, mountNode);
+const root = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+render(root, mountNode);
