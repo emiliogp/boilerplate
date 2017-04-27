@@ -10,11 +10,7 @@ class Connect extends React.Component {
   render() {
     const { store } = this.context;
     const { children } = this.props;
-    return (
-      <div>
-        {children(store)}
-      </div>
-    );
+    return children(store);
   }
 };
 
