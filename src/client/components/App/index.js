@@ -8,6 +8,7 @@ import { Icon, Title } from '../Widgets';
 import { isStatusOver } from '../../game';
 import { startGame } from '../../actions';
 import { bindDispatch } from '../../store';
+import { connect } from '../../connect';
 import './app.css';
 
 const StartButton = ({ status, onStart, children }) => (
@@ -66,22 +67,7 @@ App.propTypes = {
   startGame: React.PropTypes.func.isRequired,
 };
 
-class Provider extends React.Component {
-  componentWillMount() {
-    const { store } = this.props;
-    store.listen( state => this.forceUpdate());
-  }
-
-  render() {
-    const { store } = this.props;
-    const { dispatch, getState } = store;
-    return <App {...getState()} startGame={bindDispatch(startGame, dispatch)} />
-  }
-};
+const mapsDispatchToProps = dispatch => ({ startGame: bindDispatch(startGame, dispatch) });
+export default connect(mapsDispatchToProps)(App);
 
 
-Provider.propTypes = {
-  store: React.PropTypes.object.isRequired,
-};
-
-export default Provider;
