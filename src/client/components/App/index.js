@@ -8,16 +8,11 @@ import { Icon, Title } from '../Widgets';
 import { isStatusOver } from '../../game';
 import './app.css';
 
-const StartButton = ({ status, children }) => {
-  if (isStatusOver(status)) {
-    return (
-    <div className='start-button'>
-      <Button bsSize='lg' bsStyle='primary'> {children} </Button>
-    </div>
-    );
-  }
-  return <div/>
-};
+const StartButton = ({ status, children }) => (
+<div className='start-button'>
+    <Button disabled={!isStatusOver(status)} bsSize='lg' bsStyle='primary'> {children} </Button>
+  </div>
+);
 
 StartButton.propTypes = {
   status: React.PropTypes.string.isRequired,
