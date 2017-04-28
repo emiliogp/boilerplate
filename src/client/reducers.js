@@ -1,12 +1,12 @@
-import { TITLE_ICON_LOADED, START_GAME, HAS_PLAYED, END_OF_GAME } from './actions';
+import { FRUIT_LOADED, START_GAME, HAS_PLAYED, END_OF_GAME } from './actions';
 import { PLAYING, GAME_OVER } from './game';
 
 const reducer = (state, action) => {
   switch(action.type) {
-    case TITLE_ICON_LOADED:
+    case FRUIT_LOADED:
       return {
         ...state,
-        titleIcon: action.fruit,
+        [action.name]: action.fruit,
       };
     case START_GAME:
       return {

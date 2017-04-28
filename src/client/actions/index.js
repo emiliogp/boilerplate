@@ -4,7 +4,7 @@ import { isComputer, switchPlayer, getEmptyBoard, getNewPlayer, getNextBoard, is
 export const START_GAME = 'START_GAME';
 export const END_OF_GAME = 'END_OF_GAME';
 export const HAS_PLAYED = 'HAS_PLAYED';
-export const TITLE_ICON_LOADED = 'TITLE_ICON_LOADED';
+export const FRUIT_LOADED = 'FRUIT_LOADED';
 
 const computerPlay = () => (dispatch, getState) => {
   const { board } = getState();
@@ -12,17 +12,18 @@ const computerPlay = () => (dispatch, getState) => {
   if (emptyCells.length) setTimeout(() => dispatch(played(emptyCells[0])), 500);
 }
 
-const titleIconLoaded = fruit => ({
-  type: TITLE_ICON_LOADED,
+const fruitLoaded = (name, fruit) => ({
+  type: FRUIT_LOADED,
+  name,
   fruit,
 });
 
-export const loadTitleIcon = () => dispatch => {
+export const loadFruit = (name) => dispatch => {
   axios({
     method: 'GET',
     url: 'https://hook.io/eric-basley/fruit',
   }).then(({ data })=> {
-    dispatch(titleIconLoaded(data));
+    dispatch(fruitLoaded(name, data));
   });
 };
 
