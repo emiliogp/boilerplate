@@ -8,7 +8,7 @@ import { HistoryPanel } from '../History';
 import { Header, HeaderLeft, HeaderRight } from '../Header';
 import { Icon, Title } from '../Widgets';
 import { isStatusOver } from '../../game';
-import { startGame } from '../../actions';
+import { startGame, played } from '../../actions';
 import './app.css';
 
 const StartButton = ({ status, onStart, children }) => (
@@ -23,13 +23,13 @@ StartButton.propTypes = {
   onStart: React.PropTypes.func.isRequired,
 };
 
-const App = ({ board, player, computer, currentPlayer, status, history, startGame }) => {
+const App = ({ titleIcon, board, winner, player, computer, currentPlayer, status, history, startGame, played }) => {
   const handleStart = () => startGame();
   return (
     <Grid>
       <Header player={player}>
         <HeaderLeft>
-          <Icon type='trophy' />
+          <Icon fruit={titleIcon} />
           <Title name='TicTacToe' />
         </HeaderLeft>
         <HeaderRight>
@@ -45,7 +45,7 @@ const App = ({ board, player, computer, currentPlayer, status, history, startGam
               <PiePanel history={history} player={player} />
             </Col>
             <Col md={4} xs={12}>
-              <BoardPanel board={board} currentPlayer={currentPlayer} />
+              <BoardPanel winner={winner} board={board} currentPlayer={currentPlayer} onPlay={played} />
             </Col>
             <Col md={4} xs={12}>
               <HistoryPanel history={history} />
@@ -60,6 +60,8 @@ const App = ({ board, player, computer, currentPlayer, status, history, startGam
 App.propTypes = {
   board: React.PropTypes.array.isRequired,
   player: React.PropTypes.object.isRequired,
+  titleIcon: React.PropTypes.object,
+  winner: React.PropTypes.object,
   computer: React.PropTypes.object.isRequired,
   currentPlayer: React.PropTypes.object,
   status: React.PropTypes.string.isRequired,
@@ -67,7 +69,7 @@ App.propTypes = {
   startGame: React.PropTypes.func.isRequired,
 };
 
-const actions = { startGame };
+const actions = { startGame, played };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 const mapStateToProps = state => state;
 export default connect(mapStateToProps, mapDispatchToProps)(App);

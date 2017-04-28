@@ -1,14 +1,18 @@
 import React from 'react';
 import './widgets.css';
 
-export const Icon = ({ type }) => (
-  <div className='title-icon'>
-    <i className={`fa fa-${type}`} />
-  </div>
-);
+export const Icon = ({ fruit }) => {
+  if (!fruit) return <div/>;
+  const { icon, color } = fruit;
+  return (
+    <div className='title-icon' style={{ color }}>
+      <i className={`fa fa-${icon}`} />
+    </div>
+  );
+};
 
 Icon.propTypes = {
-  type: React.PropTypes.string.isRequired,
+  fruit: React.PropTypes.object,
 };
 
 export const Title = ({ name }) => (
