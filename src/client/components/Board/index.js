@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { isComputer, isEmptyCell } from '../../game';
+import { isComputer, isEmptyCell, isFruit } from '../../game';
 import './board.css';
 
 export const Message = ({ winner, currentPlayer }) => {
@@ -30,6 +30,15 @@ const PlayedCell = ({ piece }) => (
   </Col>
 );
 
+const Fruit = ({ piece }) => {
+  const { icon, color } = piece;
+  return (
+    <Col className='fruit' style={{ color }} xs={4}>
+      <i className={`fa fa-${icon}`} />
+    </Col>
+  );
+};
+
 const DeadCell = () => (
   <Col className='cell inactive-cell' xs={4}>
     {'\u00a0'}
@@ -43,6 +52,7 @@ const ClickableCell = ({ onClick }) => (
 );
 
 export const Cell = ({ currentPlayer, piece, onClick }) => {
+  if (isFruit(piece)) return <Fruit piece={piece}/>
   if (isEmptyCell(piece)) {
     if(!currentPlayer || isComputer(currentPlayer)) return <DeadCell />
     return <ClickableCell onClick={onClick} />
@@ -51,7 +61,7 @@ export const Cell = ({ currentPlayer, piece, onClick }) => {
 };
 
 Cell.propTypes = {
-  piece: React.PropTypes.string,
+  piece: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]),
   onClick: React.PropTypes.func.isRequired,
   currentPlayer: React.PropTypes.object,
 };

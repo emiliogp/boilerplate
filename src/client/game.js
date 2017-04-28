@@ -8,7 +8,8 @@ const isX = piece => piece === X;
 const isO = piece => piece === O;
 const isAPiece = piece => isX(piece) || isO(piece);
 
-export const isComputer = (currentPlayer) => currentPlayer && currentPlayer.isComputer;
+export const isFruit = piece => piece && piece.icon;
+export const isComputer = currentPlayer => currentPlayer && currentPlayer.isComputer;
 export const switchPlayer = ({ currentPlayer, player, computer }) => isComputer(currentPlayer) ? player : computer;
 export const isNotEmptyCell = value => isAPiece(value);
 export const isEmptyCell = value => !isNotEmptyCell(value);

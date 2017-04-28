@@ -7,7 +7,7 @@ import createLogger from 'redux-logger';
 import { loadFruit } from './actions';
 import App from './components/App';
 
-import { X, O, GAME_OVER } from './game';
+import { X, O, GAME_OVER, getEmptyBoard } from './game';
 import reducer from './reducers';
 
 const { hash } = document.location;
@@ -15,17 +15,11 @@ const name = hash.slice(1) || 'Unknown player';
 const player = { name, piece: X };
 const computer = { name: 'computer', isComputer: true, piece: O };
 const initialState = {
-  currentPlayer: player,
   status: GAME_OVER,
   player,
   computer,
-  board: [X, O, X, null, null, X, O, null, null],
-  history: [
-    { id: 1, winner: player },
-    { id: 2, winner: computer },
-    { id: 3, winner: player },
-    { id: 4 },
-  ],
+  board: getEmptyBoard(),
+  history: [],
 };
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk, createLogger()));

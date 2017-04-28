@@ -25,6 +25,15 @@
   cursor: pointer;
 }
 
+.fruit {
+  font-size: 3em;
+  border: solid black;
+  border-width: 1px 0 0 1px;
+  line-height: 99px;
+  text-align: center;
+  vertical-align: middle;
+}
+
 .cell {
   font-size: 5em;
   border: solid black;
