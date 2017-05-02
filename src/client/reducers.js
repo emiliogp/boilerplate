@@ -25,7 +25,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         board: action.newBoard,
-        currentPlayer: action.nextPlayer,
+        currentPlayer: action.currentPlayer,
       };
     case END_OF_GAME:
       return {

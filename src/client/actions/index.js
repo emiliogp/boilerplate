@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from '../../../config';
 import { isComputer, switchPlayer, getEmptyBoard, getNewPlayer, getNextBoard, isGameOver } from '../game';
 
 export const START_GAME = 'START_GAME';
@@ -7,11 +8,31 @@ export const HAS_PLAYED = 'HAS_PLAYED';
 export const FRUIT_LOADED = 'FRUIT_LOADED';
 export const CELL_FRUIT_LOADED = 'CELL_FRUIT_LOADED';
 
+const { server: { host, port } }  = config;
+
 const computerPlay = () => (dispatch, getState) => {
-  const { board } = getState();
-  const emptyCells = board.map((x,i) => !x && i).filter(x=> x === 0 || x != false);
-  if (emptyCells.length) setTimeout(() => dispatch(played(emptyCells[0])), 500);
+  const url = `http://${host}:${port}/api/computer/play`;
+  const { board, computer, player } = getState();
+  const data = {
+    board,
+    computer: computer.piece,
+    player: player.piece,
+  };
+  const options = {
+    method: 'POST',
+    data,
+    url,
+  };
+  axios(options)
+    .then(({ data }) => dispatch(played(data.move)))
+    .catch(console.error);
 }
+
+// const computerPlay = () => (dispatch, getState) => {
+//   const { board } = getState();
+//   const emptyCells = board.map((x,i) => !x && i).filter(x=> x === 0 || x != false);
+//   if (emptyCells.length) setTimeout(() => dispatch(played(emptyCells[0])), 500);
+// }
 
 const fruitLoaded = (name, fruit) => dispatch => {
   dispatch({ type: FRUIT_LOADED, name, fruit });
@@ -29,21 +50,21 @@ const cellFruitLoaded = (index, fruit) => (dispatch, getState) => {
   dispatch({ type: CELL_FRUIT_LOADED, newBoard });
 };
 
-// const loadCellFruit = (dispatch, i) => {
-//   const loadFruits = Array.from(new Array(5), () => loadOneFruit);
-//   return loadFruits.reduce(
-//     (acc, p) => acc.then(() => p().then(fruit => dispatch(cellFruitLoaded(i, fruit)))),
-//     Promise.resolve()
-//   );
-// };
-
 const loadCellFruit = (dispatch, i) => {
-  return loadOneFruit().then(fruit => {
-    dispatch(cellFruitLoaded(i, fruit));
-    if (fruit.icon !== 'paper-plane') return loadCellFruit(dispatch, i);
-    return ;
-  });
+  const loadFruits = Array.from(new Array(3), () => loadOneFruit);
+  return loadFruits.reduce(
+    (acc, p) => acc.then(() => p().then(fruit => dispatch(cellFruitLoaded(i, fruit)))),
+    Promise.resolve()
+  );
 };
+
+// const loadCellFruit = (dispatch, i) => {
+//   return loadOneFruit().then(fruit => {
+//     dispatch(cellFruitLoaded(i, fruit));
+//     if (fruit.icon !== 'paper-plane') return loadCellFruit(dispatch, i);
+//     return ;
+//   });
+// };
 
 const loadCellFruits = dispatch => {
   const promises = Array.from(new Array(9), (_, i) => loadCellFruit(dispatch, i));
@@ -64,17 +85,28 @@ export const startGame = () => (dispatch, getState) => {
 
 export const played = cell => (dispatch, getState) => {
   const state = getState();
-  const { currentPlayer } = state;
+  const { currentPlayer, player, computer } = state;
   const newBoard = getNextBoard(state, cell);
-  //const winner = hasAWinner(state, newBoard);
-  //if (winner) return dispatch(gameOver(newBoard, winner));
-  if (isGameOver(newBoard)) {
-    dispatch({ type: HAS_PLAYED, newBoard, currentPlayer });
-    return dispatch(gameOver(newBoard, currentPlayer));
-  }
-  const nextPlayer = switchPlayer(state);
-  dispatch({ type: HAS_PLAYED, newBoard, nextPlayer });
-  if (isComputer(nextPlayer)) dispatch(computerPlay());
+  const data = { board: newBoard };
+  const url = `http://${host}:${port}/api/game/hasawinner`;
+  const options = { method: 'POST', data, url };
+  axios(options)
+    .then(({ data }) => {
+      const winner = data.winner && (data.winner === computer.piece ? computer : player);
+      
+      if (winner) {
+        dispatch({ type: HAS_PLAYED, newBoard, currentPlayer });
+        return dispatch(gameOver(newBoard, winner));
+      }
+      if (isGameOver(newBoard)) {
+        dispatch({ type: HAS_PLAYED, newBoard, currentPlayer });
+        return dispatch(gameOver(newBoard));
+      }
+      const nextPlayer = switchPlayer(state);
+      dispatch({ type: HAS_PLAYED, newBoard, currentPlayer: nextPlayer });
+      if (isComputer(nextPlayer)) dispatch(computerPlay());
+    })
+    .catch(console.error);
 };
 
 export const gameOver = (board, winner) => dispatch => { 
