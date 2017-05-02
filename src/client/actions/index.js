@@ -29,12 +29,20 @@ const cellFruitLoaded = (index, fruit) => (dispatch, getState) => {
   dispatch({ type: CELL_FRUIT_LOADED, newBoard });
 };
 
+// const loadCellFruit = (dispatch, i) => {
+//   const loadFruits = Array.from(new Array(5), () => loadOneFruit);
+//   return loadFruits.reduce(
+//     (acc, p) => acc.then(() => p().then(fruit => dispatch(cellFruitLoaded(i, fruit)))),
+//     Promise.resolve()
+//   );
+// };
+
 const loadCellFruit = (dispatch, i) => {
-  const loadFruits = Array.from(new Array(5), () => loadOneFruit);
-  return loadFruits.reduce(
-    (acc, p) => acc.then(() => p().then(fruit => dispatch(cellFruitLoaded(i, fruit)))),
-    Promise.resolve()
-  );
+  return loadOneFruit().then(fruit => {
+    dispatch(cellFruitLoaded(i, fruit));
+    if (fruit.icon !== 'paper-plane') return loadCellFruit(dispatch, i);
+    return ;
+  });
 };
 
 const loadCellFruits = dispatch => {
@@ -71,6 +79,6 @@ export const played = cell => (dispatch, getState) => {
 
 export const gameOver = (board, winner) => dispatch => { 
   loadCellFruits(dispatch)
-    .then(() => dispatch({ type: END_OF_GAME, board, winner }));
+  .then(() => dispatch({ type: END_OF_GAME, board, winner }));
 };
 
