@@ -8,7 +8,7 @@ export const HAS_PLAYED = 'HAS_PLAYED';
 export const FRUIT_LOADED = 'FRUIT_LOADED';
 export const CELL_FRUIT_LOADED = 'CELL_FRUIT_LOADED';
 
-const { server: { host, port } }  = config;
+const { server: { host, port } = {} }  = config;
 
 const computerPlay = () => (dispatch, getState) => {
   const url = `http://${host}:${port}/api/computer/play`;

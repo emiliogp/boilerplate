@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { isComputer, isEmptyCell, isFruit } from '../../game';
 import './board.css';
@@ -20,17 +21,17 @@ export const Message = ({ winner, currentPlayer }) => {
 };
 
 Message.propTypes = {
-  currentPlayer: React.PropTypes.object,
-  winner: React.PropTypes.object,
+  currentPlayer: PropTypes.object,
+  winner: PropTypes.object,
 };
 
-const PlayedCell = ({ piece }) => (
+export const PlayedCell = ({ piece }) => (
   <Col className='cell' xs={4}>
     {piece}
   </Col>
 );
 
-const Fruit = ({ piece }) => {
+export const Fruit = ({ piece }) => {
   const { icon, color } = piece;
   return (
     <Col className='fruit' style={{ color }} xs={4}>
@@ -39,13 +40,13 @@ const Fruit = ({ piece }) => {
   );
 };
 
-const DeadCell = () => (
+export const DeadCell = () => (
   <Col className='cell inactive-cell' xs={4}>
     {'\u00a0'}
   </Col>
 );
 
-const ClickableCell = ({ onClick }) => (
+export const ClickableCell = ({ onClick }) => (
   <Col className='cell empty-cell' xs={4} onClick={() => onClick()}>
     {'\u00a0'}
   </Col>
@@ -61,9 +62,9 @@ export const Cell = ({ currentPlayer, piece, onClick }) => {
 };
 
 Cell.propTypes = {
-  piece: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]),
-  onClick: React.PropTypes.func.isRequired,
-  currentPlayer: React.PropTypes.object,
+  piece: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  onClick: PropTypes.func,
+  currentPlayer: PropTypes.object,
 };
 
 
@@ -76,9 +77,9 @@ export const Board = ({ currentPlayer, board, onPlay }) => (
 );
 
 Board.propTypes = {
-  board: React.PropTypes.array.isRequired,
-  onPlay: React.PropTypes.func.isRequired,
-  currentPlayer: React.PropTypes.object,
+  board: PropTypes.array.isRequired,
+  onPlay: PropTypes.func.isRequired,
+  currentPlayer: PropTypes.object,
 };
 
 export const BoardPanel = ({ board, winner, currentPlayer, onPlay }) => (
@@ -93,9 +94,9 @@ export const BoardPanel = ({ board, winner, currentPlayer, onPlay }) => (
 );
 
 BoardPanel.propTypes = {
-  board: React.PropTypes.array.isRequired,
-  currentPlayer: React.PropTypes.object,
-  winner: React.PropTypes.object,
-  onPlay: React.PropTypes.func.isRequired,
+  board: PropTypes.array.isRequired,
+  currentPlayer: PropTypes.object,
+  winner: PropTypes.object,
+  onPlay: PropTypes.func.isRequired,
 };
 

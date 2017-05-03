@@ -2,12 +2,14 @@ import React from 'react';
 import should from 'should';
 import { shallow } from 'enzyme';
 import { Col } from 'react-bootstrap';
-import { BoardPanel, Board, Cell, Message } from '../';
+import { BoardPanel, Board, Cell, PlayedCell, DeadCell, ClickableCell, Fruit, Message } from '../';
+import { X } from '../../../game';
 
 const { describe, it } = global;
 const state = {
-  board: ['x', 'x', 'x'],
+  board: [X, X, X],
   currentPlayer: { name: 'Toto' }, 
+  onPlay(){},
 };
 
 describe('<Board/>', () => {
@@ -25,14 +27,21 @@ describe('<Board/>', () => {
     should(shallow(<BoardPanel {...state} />).find(Board)).have.length(1);
   });
 
-  it('should render a <Cell/>', () => {
-    const text = shallow(<Cell piece='X' />).childAt(0).text();
-    should(text).eql('X');
+  it('should render a <DeadCell/>', () => {
+    should(shallow(<Cell piece='X' />).find(DeadCell)).have.length(1);
   });
 
-  it('should render an empty <Cell/>', () => {
-    const text = shallow(<Cell />).childAt(0).text();
-    should(text).eql('\u00a0');
+  it('should render a <DeadCell/>', () => {
+    should(shallow(<Cell currentPlayer={{ isComputer: true }} />).find(DeadCell)).have.length(1);
   });
+
+  it('should render a <ClickableCell/>', () => {
+    should(shallow(<Cell currentPlayer={{}} />).find(ClickableCell)).have.length(1);
+  });
+
+  it('should render a <PlayedCell/>', () => {
+    should(shallow(<Cell piece={X} />).find(PlayedCell)).have.length(1);
+  });
+
 
 });
