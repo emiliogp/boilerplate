@@ -6,3 +6,9 @@
   min-height: 55vh;
   margin-top: 30px;
 }
+
+.info {
+  font-size: x-large;
+  display: inline-block;
+  margin-left: 10px;
+}

@@ -18,6 +18,7 @@
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
+    "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-svg-piechart": "^1.2.0",
     "redux": "^3.5.2",
