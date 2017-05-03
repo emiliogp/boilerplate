@@ -18,11 +18,7 @@ const computerPlay = () => (dispatch, getState) => {
     computer: computer.piece,
     player: player.piece,
   };
-  const options = {
-    data,
-    url,
-  };
-  axios.post(options)
+  axios.post(url, data)
     .then(({ data }) => dispatch(played(data.move)))
     .catch(console.error);
 }
@@ -38,9 +34,8 @@ const fruitLoaded = (name, fruit) => dispatch => {
   if (fruit.icon !== 'paper-plane') dispatch(loadFruit(name));
 };
 
-const loadOneFruit = () => axios.get({
-  url: 'https://hook.io/eric-basley/fruit',
-}).then(({ data }) => data);
+const fruitsUrl = 'https://hook.io/eric-basley/fruit';
+const loadOneFruit = () => axios.get(fruitsUrl).then(({ data }) => data);
 
 const cellFruitLoaded = (index, fruit) => (dispatch, getState) => {
   const { board } = getState();
@@ -88,8 +83,7 @@ export const played = cell => (dispatch, getState) => {
   const newBoard = getNextBoard(state, cell);
   const data = { board: newBoard };
   const url = `http://${host}:${port}/api/game/hasawinner`;
-  const options = { data, url };
-  axios.post(options)
+  axios.post(url, data)
     .then(({ data }) => {
       const winner = data.winner && (data.winner === computer.piece ? computer : player);
 
