@@ -1,5 +1,4 @@
-//const server = { host: 'rp3.redpelicans.com', port: 8585 };
-const server = { host: '0.0.0.0', port: 3005 };
+const server = { host: 'rp3.redpelicans.com', port: 8585 };
 const serverUrl = `http://${server.host}:${server.port}`;
 module.exports = {
   // devtool: 'eval-source-map',
