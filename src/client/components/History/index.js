@@ -1,4 +1,7 @@
+import R from 'ramda';
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import './history.css';
 
@@ -9,7 +12,7 @@ const Status = ({ round }) => (
 );
 
 Status.propTypes = {
-  round: React.PropTypes.number,
+  round: PropTypes.number,
 };
 
 const TiedRound = ({ id }) => (
@@ -23,7 +26,7 @@ const TiedRound = ({ id }) => (
   </Row>
 );
 TiedRound.propTypes = {
-  id: React.PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 const WinnedRound = ({ id, name }) => (
@@ -41,8 +44,8 @@ const WinnedRound = ({ id, name }) => (
 );
 
 WinnedRound.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  id: React.PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 const Round = ({ round }) => {
@@ -51,7 +54,7 @@ const Round = ({ round }) => {
 };
 
 Round.propTypes = {
-  round: React.PropTypes.object.isRequired,
+  round: PropTypes.object.isRequired,
 };
 
 const History = ({ history }) => (
@@ -61,7 +64,7 @@ const History = ({ history }) => (
 );
 
 History.propTypes = {
-  history: React.PropTypes.array,
+  history: PropTypes.array,
 };
 
 
@@ -80,6 +83,8 @@ export const HistoryPanel = ({ history }) => {
 };
 
 HistoryPanel.propTypes = {
-  history: React.PropTypes.array,
+  history: PropTypes.array,
 };
 
+const mapStateToProps = R.pick(['history']);
+export default connect(mapStateToProps)(HistoryPanel);

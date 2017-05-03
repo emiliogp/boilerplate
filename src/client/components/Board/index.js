@@ -1,5 +1,9 @@
+import R from 'ramda';
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { played } from '../../actions';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { isComputer, isEmptyCell, isFruit } from '../../game';
 import './board.css';
@@ -100,3 +104,7 @@ BoardPanel.propTypes = {
   onPlay: PropTypes.func.isRequired,
 };
 
+const actions = { onPlay: played };
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+const mapStateToProps = R.pick(['board', 'currentPlayer', 'winner']);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardPanel);

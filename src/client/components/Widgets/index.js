@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './widgets.css';
 
 export const Icon = ({ fruit }) => {
@@ -12,7 +13,7 @@ export const Icon = ({ fruit }) => {
 };
 
 Icon.propTypes = {
-  fruit: React.PropTypes.object,
+  fruit: PropTypes.object,
 };
 
 export const Title = ({ name }) => (
@@ -22,5 +23,5 @@ export const Title = ({ name }) => (
 );
 
 Title.propTypes = {
-  name: React.PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };

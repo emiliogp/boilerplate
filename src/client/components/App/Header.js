@@ -1,4 +1,5 @@
 import React from 'react';
+import R from 'ramda';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -62,5 +63,7 @@ HeaderApp.propTypes = {
 
 const actions = { startGame };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-const mapStateToProps = state => state;
+const mapStateToProps = R.pick(['status', 'player', 'startGame', 'titleIcon', 'location']);
+//const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign({}, ownProps, stateProps, dispatchProps);
+//export default withRouter(connect(mapStateToProps, mapDispatchToProps, mergeProps, { pure: false })(HeaderApp));
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderApp));

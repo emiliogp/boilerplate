@@ -1,4 +1,7 @@
+import R from 'ramda';
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap';
 import PieChart from 'react-svg-piechart';
 import './pie.css';
@@ -52,7 +55,9 @@ export class PiePanel extends React.Component {
 }
 
 PiePanel.propTypes = {
-  player: React.PropTypes.object.isRequired,
-  history: React.PropTypes.array.isRequired,
+  player: PropTypes.object.isRequired,
+  history: PropTypes.array.isRequired,
 };
 
+const mapStateToProps = R.pick(['history', 'player']);
+export default connect(mapStateToProps )(PiePanel);

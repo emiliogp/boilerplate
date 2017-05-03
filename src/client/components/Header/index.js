@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap';
 import './header.css';
 
@@ -9,7 +10,7 @@ export const PlayerPreview = ({ player: { name } }) => (
 );
 
 PlayerPreview.propTypes = {
-  player: React.PropTypes.object.isRequired,
+  player: PropTypes.object.isRequired,
 };
 
 export const Header = ({ children, player }) => {
@@ -38,8 +39,8 @@ export const Header = ({ children, player }) => {
 };
 
 Header.propTypes = {
-  player: React.PropTypes.object.isRequired,
-  children: React.PropTypes.node,
+  player: PropTypes.object.isRequired,
+  children: PropTypes.node,
 };
 
 export const HeaderLeft = ({ children }) => (
@@ -49,7 +50,7 @@ export const HeaderLeft = ({ children }) => (
 );
 
 HeaderLeft.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 export const HeaderRight = ({ children }) => (
@@ -59,7 +60,7 @@ export const HeaderRight = ({ children }) => (
 );
 
 HeaderRight.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 
