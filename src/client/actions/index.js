@@ -19,11 +19,10 @@ const computerPlay = () => (dispatch, getState) => {
     player: player.piece,
   };
   const options = {
-    method: 'POST',
     data,
     url,
   };
-  axios(options)
+  axios.post(options)
     .then(({ data }) => dispatch(played(data.move)))
     .catch(console.error);
 }
@@ -39,8 +38,7 @@ const fruitLoaded = (name, fruit) => dispatch => {
   if (fruit.icon !== 'paper-plane') dispatch(loadFruit(name));
 };
 
-const loadOneFruit = () => axios({
-  method: 'GET',
+const loadOneFruit = () => axios.get({
   url: 'https://hook.io/eric-basley/fruit',
 }).then(({ data }) => data);
 
@@ -66,8 +64,9 @@ const loadCellFruit = (dispatch, i) => {
 //   });
 // };
 
-const loadCellFruits = dispatch => {
-  const promises = Array.from(new Array(9), (_, i) => loadCellFruit(dispatch, i));
+const loadCellFruits = (dispatch, getState) => {
+  const { board } = getState();
+  const promises = Array.from(new Array(board.length), (_, i) => loadCellFruit(dispatch, i));
   return Promise.all(promises)
 };
 
@@ -89,11 +88,11 @@ export const played = cell => (dispatch, getState) => {
   const newBoard = getNextBoard(state, cell);
   const data = { board: newBoard };
   const url = `http://${host}:${port}/api/game/hasawinner`;
-  const options = { method: 'POST', data, url };
-  axios(options)
+  const options = { data, url };
+  axios.post(options)
     .then(({ data }) => {
       const winner = data.winner && (data.winner === computer.piece ? computer : player);
-      
+
       if (winner) {
         dispatch({ type: HAS_PLAYED, newBoard, currentPlayer });
         return dispatch(gameOver(newBoard, winner));
@@ -109,8 +108,8 @@ export const played = cell => (dispatch, getState) => {
     .catch(console.error);
 };
 
-export const gameOver = (board, winner) => dispatch => { 
-  loadCellFruits(dispatch)
+export const gameOver = (board, winner) => (dispatch, getState) => { 
+  loadCellFruits(dispatch, getState)
   .then(() => dispatch({ type: END_OF_GAME, board, winner }));
 };
 
