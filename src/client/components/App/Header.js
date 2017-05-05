@@ -63,7 +63,7 @@ HeaderApp.propTypes = {
 
 const actions = { startGame };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-const mapStateToProps = R.pick(['status', 'player', 'startGame', 'titleIcon', 'location']);
+const mapStateToProps = R.pick(['status', 'player', 'titleIcon']);
 //const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign({}, ownProps, stateProps, dispatchProps);
 //export default withRouter(connect(mapStateToProps, mapDispatchToProps, mergeProps, { pure: false })(HeaderApp));
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderApp));
