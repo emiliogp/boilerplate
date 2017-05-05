@@ -1,3 +1,4 @@
+import R from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -62,5 +63,5 @@ HeaderApp.propTypes = {
 
 const actions = { startGame };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-const mapStateToProps = state => state;
+const mapStateToProps = R.pick(['status', 'player', 'titleIcon']);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderApp));

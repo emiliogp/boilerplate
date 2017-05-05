@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { BoardPanel } from '../Board';
-import { PiePanel } from '../Pie';
-import { HistoryPanel } from '../History';
+import BoardPanel from '../Board';
+import PiePanel from '../Pie';
+import HistoryPanel from '../History';
 import { played } from '../../actions';
 import './app.css';
 

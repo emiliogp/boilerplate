@@ -1,4 +1,5 @@
 import React from 'react';
+import { onlyUpdateForKeys, pure } from 'recompose';
 import { PropTypes } from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { isComputer, isEmptyCell, isFruit } from '../../game';
@@ -25,20 +26,20 @@ Message.propTypes = {
   winner: PropTypes.object,
 };
 
-export const PlayedCell = ({ piece }) => (
+export const PlayedCell = pure(({ piece }) => (
   <Col className='cell' xs={4}>
     {piece}
   </Col>
-);
+));
 
-export const Fruit = ({ piece }) => {
+export const Fruit = pure(({ piece }) => {
   const { icon, color } = piece;
   return (
     <Col className='fruit' style={{ color }} xs={4}>
       <i className={`fa fa-${icon}`} />
     </Col>
   );
-};
+});
 
 export const DeadCell = () => (
   <Col className='cell inactive-cell' xs={4}>
@@ -82,7 +83,7 @@ Board.propTypes = {
   currentPlayer: PropTypes.object,
 };
 
-export const BoardPanel = ({ board, winner, currentPlayer, onPlay }) => (
+const BoardPanel = ({ board, winner, currentPlayer, onPlay }) => (
   <Grid className="panel">
     <Row>
       <Message currentPlayer={currentPlayer} winner={winner} />
@@ -100,3 +101,4 @@ BoardPanel.propTypes = {
   onPlay: PropTypes.func.isRequired,
 };
 
+export default onlyUpdateForKeys(['board', 'currentPlayer', 'winner'])(BoardPanel);

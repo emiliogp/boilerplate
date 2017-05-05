@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk, createLogger()));
-store.dispatch(loadFruit('titleIcon'));
+//store.dispatch(loadFruit('titleIcon'));
 
 console.log('mounting React ...'); // eslint-disable-line no-console
 const mountNode = window.document.getElementById('__TICTACTOE__');

@@ -1,11 +1,12 @@
 import React from 'react';
+import { onlyUpdateForKeys } from 'recompose';
 import { Row, Col } from 'react-bootstrap';
 import PieChart from 'react-svg-piechart';
 import './pie.css';
 
 const getWins = (fct, history) => history.filter(({ winner }) => fct(winner)).length;
 
-export class PiePanel extends React.Component {
+class PiePanel extends React.Component {
   state = { expandedSector: null }
   handleMouseEnterOnSector = sector => this.setState({ expandedSector: sector })
   render() {
@@ -56,3 +57,4 @@ PiePanel.propTypes = {
   history: React.PropTypes.array.isRequired,
 };
 
+export default onlyUpdateForKeys(['player', 'history'])(PiePanel);

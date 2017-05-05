@@ -1,4 +1,5 @@
 import React from 'react';
+import { onlyUpdateForKeys } from 'recompose';
 import { Grid, Row, Col } from 'react-bootstrap';
 import './history.css';
 
@@ -65,7 +66,7 @@ History.propTypes = {
 };
 
 
-export const HistoryPanel = ({ history }) => {
+const HistoryPanel = ({ history }) => {
   const nextRound = history && history.length + 1 || 0;
   return (
     <Grid>
@@ -83,3 +84,4 @@ HistoryPanel.propTypes = {
   history: React.PropTypes.array,
 };
 
+export default onlyUpdateForKeys(['history'])(HistoryPanel);
