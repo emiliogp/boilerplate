@@ -3,6 +3,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { pure } from 'recompose';
 import { played } from '../../actions';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { isComputer, isEmptyCell, isFruit } from '../../game';
@@ -29,20 +30,20 @@ Message.propTypes = {
   winner: PropTypes.object,
 };
 
-export const PlayedCell = ({ piece }) => (
+export const PlayedCell = pure(({ piece }) => (
   <Col className='cell' xs={4}>
     {piece}
   </Col>
-);
+));
 
-export const Fruit = ({ piece }) => {
+export const Fruit = pure(({ piece }) => {
   const { icon, color } = piece;
   return (
     <Col className='fruit' style={{ color }} xs={4}>
       <i className={`fa fa-${icon}`} />
     </Col>
   );
-};
+});
 
 export const DeadCell = () => (
   <Col className='cell inactive-cell' xs={4}>
