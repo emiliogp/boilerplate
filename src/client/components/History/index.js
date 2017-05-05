@@ -57,7 +57,7 @@ Round.propTypes = {
 
 const History = ({ history }) => (
   <Grid className='history'>
-    {history.slice(-20).reverse().map((round, i) => <Round round={round} key={i} />)}
+    {history.map((round, i) => <Round round={round} key={i} />)}
   </Grid>
 );
 
