@@ -1,18 +1,8 @@
-import { CELL_FRUIT_LOADED, FRUIT_LOADED, START_GAME, HAS_PLAYED, END_OF_GAME } from './actions';
+import { START_GAME, HAS_PLAYED, END_OF_GAME } from './actions';
 import { PLAYING, GAME_OVER } from './game';
 
 const reducer = (state, action) => {
   switch(action.type) {
-    case CELL_FRUIT_LOADED:
-      return {
-        ...state,
-        board: action.newBoard,
-      };
-    case FRUIT_LOADED:
-      return {
-        ...state,
-        [action.name]: action.fruit,
-      };
     case START_GAME:
       return {
         ...state,
