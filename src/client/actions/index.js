@@ -37,16 +37,16 @@ const cellFruitLoaded = (index, fruit) => (dispatch, getState) => {
 //   );
 // };
 
-const loadCellFruit = (dispatch, i) => {
+const loadCellFruit = (i) => dispatch => {
   return loadOneFruit().then(fruit => {
     dispatch(cellFruitLoaded(i, fruit));
-    if (fruit.icon !== 'paper-plane') return loadCellFruit(dispatch, i);
+    if (fruit.icon !== 'paper-plane') return dispatch(loadCellFruit(i));
     return ;
   });
 };
 
-const loadCellFruits = dispatch => {
-  const promises = Array.from(new Array(9), (_, i) => loadCellFruit(dispatch, i));
+const loadCellFruits = () => dispatch => {
+  const promises = Array.from(new Array(9), (_, i) => dispatch(loadCellFruit(i)));
   return Promise.all(promises)
 };
 
@@ -78,7 +78,7 @@ export const played = cell => (dispatch, getState) => {
 };
 
 export const gameOver = (board, winner) => dispatch => { 
-  loadCellFruits(dispatch)
+  dispatch(loadCellFruits())
   .then(() => dispatch({ type: END_OF_GAME, board, winner }));
 };
 
