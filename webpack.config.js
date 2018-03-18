@@ -10,6 +10,7 @@ const ifProd = (plugin) => isProd() ? plugin : null;
 const ifDev = (plugin) => isDev() ? plugin : null;
 const compact = (data = []) => data.filter(x => Boolean(x));
 
+
 const webpackConfig = {
   devtool: config.devtool,
   devServer: config.devServer || {},
@@ -41,8 +42,8 @@ const webpackConfig = {
     }),
     ifDev(new webpack.HotModuleReplacementPlugin()),
   ]),
-  performance: { 
-    hints: false
+  performance: {
+    hints: false,
   },
   stats: {
     assets: true,
